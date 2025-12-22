@@ -5,7 +5,7 @@ import { Tabs } from 'expo-router'
 const TabsLayout = () => {
     return (
         <Tabs screenOptions={{ headerShown: false }}>
-            <Tabs.Screen name="index" options={{ headerShown: false }} />
+            <Tabs.Screen name="index" options={{ title: 'Home' }} />
             <Tabs.Screen name="task" options={{ title: 'Task' }} />
             <Tabs.Screen name="habits" options={{ title: 'Habits' }} />
             <Tabs.Screen name="timer" options={{ title: 'Timer' }} />
