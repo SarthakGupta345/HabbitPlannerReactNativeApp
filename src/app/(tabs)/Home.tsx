@@ -1,3 +1,4 @@
+import Sidebar from "@/src/Components/sidebar";
 import React, { useCallback, useState } from "react";
 import {
     View,
@@ -5,12 +6,14 @@ import {
     StyleSheet,
     TouchableOpacity,
     FlatList,
+    Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 /* -------------------------------------------------------------------------- */
 /*                                   CONSTS                                   */
 /* -------------------------------------------------------------------------- */
+
 
 const COLORS = {
     bg: "#000000",
@@ -37,6 +40,7 @@ const DATES = [
 /* -------------------------------------------------------------------------- */
 
 const TodayScreen = () => {
+    const [sidebarSelected, setSidebarSelected] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState(21);
 
     const renderDateItem = useCallback(
@@ -61,16 +65,21 @@ const TodayScreen = () => {
         [selectedDate]
     );
 
+    // TODO:
     return (
         <SafeAreaView style={styles.container}>
             {/* -------------------------------- HEADER -------------------------------- */}
             <View style={styles.header}>
                 <View style={styles.headerLeft}>
-                    <View style={styles.menuIcon}>
+                    <Pressable style={styles.menuIcon}
+                        onPress={() => {
+                            setSidebarSelected(true);
+                        }}
+                    >
                         <View style={styles.menuLine} />
                         <View style={styles.menuLine} />
                         <View style={styles.menuLine} />
-                    </View>
+                    </Pressable>
                     <Text style={styles.headerTitle}>Today</Text>
                 </View>
 
@@ -82,6 +91,10 @@ const TodayScreen = () => {
                     ))}
                 </View>
             </View>
+
+            {
+                true && <Sidebar/>
+            }
 
             {/* ----------------------------- DATE SLIDER ------------------------------ */}
             <FlatList
