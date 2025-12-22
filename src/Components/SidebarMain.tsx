@@ -5,6 +5,7 @@ import {
     Pressable,
     Animated,
     Dimensions,
+    TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,6 +19,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { router } from "expo-router";
 const { width } = Dimensions.get("window");
 const SIDEBAR_WIDTH = width * 0.7;
 const visible = true;
@@ -117,9 +119,14 @@ const Sidebar = () => {
                             {/* Timer */}
 
                             <View style={styles.optinBox}>
-                                <View style={styles.indiBox}>
-                                    <Ionicons name="color-fill-sharp" size={28} color="orange" />                                    <Text style={styles.text}>Customize</Text>
-                                </View>
+                                <TouchableOpacity style={styles.indiBox} activeOpacity={0.85}
+                                    onPress={() => {
+                                        router.push("/(Themes)/MainPage")
+                                    }}
+                                >
+                                    <Ionicons name="color-fill-sharp" size={28} color="orange" />
+                                    <Text style={styles.text}>Customize</Text>
+                                </TouchableOpacity>
 
                                 <View style={styles.indiBox}>
                                     <Ionicons name="settings" size={24} color="white" />                                    <Text style={styles.text}>Settings</Text>
