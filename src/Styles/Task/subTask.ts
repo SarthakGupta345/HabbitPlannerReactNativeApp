@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginTop: 7,
+        marginTop: 10,
         marginLeft: 7
     },
 

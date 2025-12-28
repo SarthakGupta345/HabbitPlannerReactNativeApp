@@ -38,7 +38,7 @@ const Sidebar = () => {
     if (!visible) return null;
 
     return (
-        <View style={styles.overlay}>
+        <View style={styles.overlay} >
             {/* Sidebar FIRST so it stays on left */}
             <Animated.View
                 style={[
@@ -48,7 +48,7 @@ const Sidebar = () => {
             >
                 <SafeAreaView style={{ paddingHorizontal: 10 }}>
                     <View style={{ margin: 5 }}>
-                        <View style={{ flexDirection: "row", marginLeft: 8, marginTop: 20 }}>
+                        <View style={{ flexDirection: "row", marginLeft: 8, marginTop: 2 }}>
                             <Text style={styles.logoText1}>Daily</Text>
                             <Text style={styles.logoText2}>Planner</Text>
                         </View>
@@ -60,10 +60,14 @@ const Sidebar = () => {
                                 source={person}
                                 style={styles.profileImage}
                             />
-                            <View style={{ marginLeft: 1, marginTop: 10 }}>
+                            <TouchableOpacity style={{ marginLeft: 1, marginTop: 10 }} activeOpacity={0.8}
+                                onPress={() => {
+                                    router.push("/(progress)/Progress")
+                                }}
+                            >
                                 <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>Hello Sarthak 🤗</Text>
                                 <Text style={{ color: "gray", fontSize: 13, fontWeight: "medium" }}>Your Progress</Text>
-                            </View>
+                            </TouchableOpacity>
 
                         </View>
 
@@ -117,28 +121,9 @@ const Sidebar = () => {
 
 
                             {/* Timer */}
-
-                            <View style={styles.optinBox}>
-                                <TouchableOpacity style={styles.indiBox} activeOpacity={0.85}
-                                    onPress={() => {
-                                        router.push("/(Themes)/MainPage")
-                                    }}
-                                >
-                                    <Ionicons name="color-fill-sharp" size={28} color="orange" />
-                                    <Text style={styles.text}>Customize</Text>
-                                </TouchableOpacity>
-
-                                <View style={styles.indiBox}>
-                                    <Ionicons name="settings" size={24} color="white" />                                    <Text style={styles.text}>Settings</Text>
-                                </View>
+                            {/* //TODO:implement timer and rate us later */}
 
 
-
-                                <View style={styles.indiBox}>
-                                    <AntDesign name="cloud-upload" size={28} color="white" />                                    <Text style={styles.text}>Account & Backup</Text>
-                                </View>
-
-                            </View>
 
 
                             {/* settings */}
@@ -146,17 +131,23 @@ const Sidebar = () => {
 
                             <View style={styles.optinBox}>
                                 <View style={styles.indiBox}>
-                                    <Ionicons name="color-fill-sharp" size={28} color="orange" />                                    <Text style={styles.text}>Customize</Text>
+                                    <Ionicons name="color-fill-sharp" size={28} color="orange" />
+                                    <Text style={styles.text}>Customize</Text>
                                 </View>
 
+                                <TouchableOpacity style={styles.indiBox} activeOpacity={0.85}
+                                    onPress={() => {
+                                        router.push("/(Setting)/mainPage")
+                                    }}
+                                >
+                                    <Ionicons name="settings" size={24} color="white" />
+                                    <Text style={styles.text}>Settings</Text>
+                                </TouchableOpacity>
+
+
                                 <View style={styles.indiBox}>
-                                    <Ionicons name="settings" size={24} color="white" />                                    <Text style={styles.text}>Settings</Text>
-                                </View>
-
-
-
-                                <View style={styles.indiBox}>
-                                    <AntDesign name="cloud-upload" size={28} color="white" />                                    <Text style={styles.text}>Account & Backup</Text>
+                                    <AntDesign name="cloud-upload" size={28} color="white" />
+                                    <Text style={styles.text}>Account & Backup</Text>
                                 </View>
 
                             </View>
@@ -164,7 +155,11 @@ const Sidebar = () => {
 
                             {/* Premium Options */}
 
-                            <View style={styles.optinBox}>
+                            <TouchableOpacity style={styles.optinBox} activeOpacity={0.85}
+                                onPress={() => {
+                                    router.push("/(Premium)/PremiumPage")
+                                }}
+                            >
                                 <View style={styles.indiBox}>
                                     <FontAwesome5 name="crown" size={22} color="rgba(207, 142, 0, 1)" />                                     <Text style={styles.text}>Premium</Text>
                                 </View>
@@ -181,8 +176,7 @@ const Sidebar = () => {
                                     <Text style={styles.text}>Contact us</Text>
                                 </View>
 
-                            </View>
-
+                            </TouchableOpacity>
 
                         </View>
 
@@ -211,7 +205,7 @@ const styles = StyleSheet.create({
     profileBox: {
         flexDirection: "row",
         gap: 15,
-        marginTop: 10,
+        marginTop: 15,
         marginLeft: 3
 
     },
@@ -245,12 +239,12 @@ const styles = StyleSheet.create({
 
     logoText1: {
         color: COLORS.accent,
-        fontSize: 25,
+        fontSize: 28,
         fontWeight: "condensedBold"
     },
     logoText2: {
         color: COLORS.accent,
-        fontSize: 25,
+        fontSize: 28,
         fontWeight: "bold"
     },
 

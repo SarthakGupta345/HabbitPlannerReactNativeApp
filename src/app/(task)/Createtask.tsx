@@ -25,7 +25,7 @@ import Footer from "@/src/Styles/Task/Footer";
 
 
 
-const Main = () => {
+const CreateTask = () => {
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: COLORS.background }]}>
             <ScrollView
@@ -89,5 +89,5 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default CreateTask;
 

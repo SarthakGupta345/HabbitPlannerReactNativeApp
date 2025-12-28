@@ -4,6 +4,7 @@ import {
     StyleSheet,
     ScrollView,
     Pressable,
+    TouchableOpacity,
 } from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React, { useMemo, useState } from "react";
@@ -13,11 +14,12 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "@expo/vector-icons/Feather";
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { router } from "expo-router";
+import Sidebar from "@/src/Components/SidebarMain";
 
 const Home = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
-    // 🔑 Correct date logic
     const days = useMemo(() => {
         const result = [];
         const today = new Date();
@@ -37,15 +39,23 @@ const Home = () => {
         return result;
     }, []);
 
+    const [prevSelected, setPrevSelected] = useState(false);
+    const [nextSelected, setNextSelected] = useState(false);
+    const [sidebarSelected, setSidebarSelected] = useState(false);
+
     return (
         <SafeAreaView style={styles.container}>
+            {
+                true && <Sidebar/>
+            }
             <View style={styles.mainBox}>
                 {/* Top Bar */}
                 <View style={styles.topBox}>
-                    <View style={styles.leftTop}>
+                    <TouchableOpacity style={styles.leftTop} 
+                        onPress={() => setSidebarSelected(true)}>
                         <Ionicons name="menu" size={22} color="white" />
                         <Text style={styles.mainTitle}>Today</Text>
-                    </View>
+                    </TouchableOpacity>
 
                     <View style={styles.rightTop}>
                         <Feather name="search" size={24} color="white" />
@@ -105,10 +115,106 @@ const Home = () => {
                         <MaterialIcons name="arrow-drop-down" size={24} color="white" style={{ marginTop: 2 }} />
                     </View>
 
-                    <View style={styles.taskBox}>
+                    <TouchableOpacity style={styles.taskBox} activeOpacity={0.85}
+                        onPress={() => {
+                            router.push('/(task)/EditTask')
+                        }}
+                    >
+                        <View style={styles.categoryBox}>
+                            <Feather name="clock" size={20} color="white" />
+                        </View>
+                        <View>
+                            <Text style={{ color: "white", fontSize: 15, fontWeight: "600" }}>All Machine Learning Done Today</Text>
+                            <View style={{ flexDirection: "row", gap: 3 }}>
+                                <View style={styles.bottomTaskBox} >
+                                    <Text style={{ color: "white", fontSize: 10 }}>Task</Text>
+                                </View>
+                                <View style={styles.bottomTaskBox}>
+                                    <Feather name="repeat" size={10} color="black" />                                </View>
+                            </View>
+                        </View>
+                        <View style={styles.circleBox}>
 
-                    </View>
+                        </View>
+
+                    </TouchableOpacity>
+
+
+
                 </View>
+
+
+                {/* Previous Task */}
+
+
+                <View style={styles.todayBox}>
+                    <TouchableOpacity activeOpacity={0.85}
+                        style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
+                        onPress={() => {
+                            setPrevSelected(!prevSelected);
+                        }}
+                    >
+                        <Text style={{ color: "white", fontSize: 18, fontWeight: "600" }}>Previous</Text>
+
+                        {
+                            prevSelected ? (
+                                <MaterialIcons name="arrow-drop-up" size={24} color="white" style={{ marginTop: 2 }} />
+                            ) : (
+                                <MaterialIcons name="arrow-drop-down" size={24} color="white" style={{ marginTop: 2 }} />
+                            )
+                        }
+
+                    </TouchableOpacity>
+                </View>
+
+                {
+                    prevSelected && (
+                        <>
+                            <View style={styles.taskBox}>
+                                <View style={styles.categoryBox}>
+                                    <Feather name="clock" size={20} color="white" />
+                                </View>
+                                <View>
+                                    <Text style={{ color: "white", fontSize: 15, fontWeight: "600" }}>All Machine Learning Done Today</Text>
+                                    <View style={{ flexDirection: "row", gap: 3 }}>
+                                        <View style={styles.bottomTaskBox} >
+                                            <Text style={{ color: "white", fontSize: 10 }}>Task</Text>
+                                        </View>
+                                        <View style={styles.bottomTaskBox}>
+                                            <Feather name="repeat" size={10} color="black" />                                </View>
+                                    </View>
+                                </View>
+                                <View style={styles.circleBox}>
+
+                                </View>
+
+                            </View>
+
+
+                            <View style={styles.taskBox}>
+                                <View style={styles.categoryBox}>
+                                    <Feather name="clock" size={20} color="white" />
+                                </View>
+                                <View>
+                                    <Text style={{ color: "white", fontSize: 15, fontWeight: "600" }}>All Machine Learning Done Today</Text>
+                                    <View style={{ flexDirection: "row", gap: 3 }}>
+                                        <View style={styles.bottomTaskBox} >
+                                            <Text style={{ color: "white", fontSize: 10 }}>Task</Text>
+                                        </View>
+                                        <View style={styles.bottomTaskBox}>
+                                            <Feather name="repeat" size={10} color="black" />                                </View>
+                                    </View>
+                                </View>
+                                <View style={styles.circleBox}>
+
+                                </View>
+
+                            </View>
+
+                        </>
+                    )
+                }
+
             </View>
         </SafeAreaView>
     );
@@ -124,14 +230,43 @@ const styles = StyleSheet.create({
     },
     todayBox: {
         marginTop: 10,
-        paddingHorizontal: 10,
         paddingVertical: 10
+    },
+    bottomTaskBox: {
+        paddingHorizontal: 6,
+        paddingVertical: 1,
+        backgroundColor: "red",
+        borderRadius: 3,
+        alignContent: "center",
+        justifyContent: "center"
+    },
+    categoryBox: {
+        paddingVertical: 8,
+        paddingHorizontal: 8,
+        marginTop: 4,
+        backgroundColor: "red",
+        borderRadius: 10
+
+    },
+
+    circleBox: {
+        width: 22,
+        height: 22,
+        borderRadius: 100,
+        backgroundColor: "red",
+        marginLeft: 'auto',
 
     },
     prevBox: {
 
     },
     taskBox: {
+        flexDirection: "row",
+        gap: 10,
+        borderBottomColor: "rgba(55, 55, 55, 1)",
+        borderBottomWidth: 1,
+        paddingVertical: 16,
+        paddingHorizontal: 4
 
     },
 

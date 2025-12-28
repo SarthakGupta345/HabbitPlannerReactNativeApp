@@ -5,7 +5,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import PriorityChoose from './PriorityChoose'
 
 const Priority = () => {
-    const [selected, setSelected] = React.useState(true);
+    const [selected, setSelected] = React.useState(false);
     const [count, setCount] = React.useState(1);
     if (selected) {
         return (
