@@ -16,6 +16,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { router } from "expo-router";
 import Sidebar from "@/src/Components/SidebarMain";
+import TaskBox from "@/src/Components/Task";
 
 const Home = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -46,12 +47,13 @@ const Home = () => {
     return (
         <SafeAreaView style={styles.container}>
             {
-                true && <Sidebar/>
+                false && <Sidebar />
             }
+
             <View style={styles.mainBox}>
                 {/* Top Bar */}
                 <View style={styles.topBox}>
-                    <TouchableOpacity style={styles.leftTop} 
+                    <TouchableOpacity style={styles.leftTop}
                         onPress={() => setSidebarSelected(true)}>
                         <Ionicons name="menu" size={22} color="white" />
                         <Text style={styles.mainTitle}>Today</Text>
@@ -109,39 +111,9 @@ const Home = () => {
 
                 {/* Today Task */}
 
-                <View style={styles.todayBox}>
-                    <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-                        <Text style={{ color: "white", fontSize: 18, fontWeight: "600" }}>Today</Text>
-                        <MaterialIcons name="arrow-drop-down" size={24} color="white" style={{ marginTop: 2 }} />
-                    </View>
+                <TaskBox/>
 
-                    <TouchableOpacity style={styles.taskBox} activeOpacity={0.85}
-                        onPress={() => {
-                            router.push('/(task)/EditTask')
-                        }}
-                    >
-                        <View style={styles.categoryBox}>
-                            <Feather name="clock" size={20} color="white" />
-                        </View>
-                        <View>
-                            <Text style={{ color: "white", fontSize: 15, fontWeight: "600" }}>All Machine Learning Done Today</Text>
-                            <View style={{ flexDirection: "row", gap: 3 }}>
-                                <View style={styles.bottomTaskBox} >
-                                    <Text style={{ color: "white", fontSize: 10 }}>Task</Text>
-                                </View>
-                                <View style={styles.bottomTaskBox}>
-                                    <Feather name="repeat" size={10} color="black" />                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.circleBox}>
-
-                        </View>
-
-                    </TouchableOpacity>
-
-
-
-                </View>
+               
 
 
                 {/* Previous Task */}
